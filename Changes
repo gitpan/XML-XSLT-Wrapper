@@ -1,0 +1,32 @@
+Revision history for Perl extension XML::XSLT::Wrapper.
+
+0.31 Sat Jun  2 2001
+	- OutFile works for all processors.
+	- Changed out to OutFile, added deprecated warning for out
+0.30 Fri Jun  1 2001
+	- Add temp file for processors which cannot accept string input
+	- Add Driver::WrapperLibXSLT for use with Matt Sergeant's benchmark.pl
+	  to run XSLTMark
+0.20
+	- add persistent parser objects
+	- pre_parse method for LibXSLT
+	- Code for each processor only compiled if processor is to be used
+	  (AUTOLOAD trick)
+	- Added init check on each processor
+	- Check on Java classpaths (suggested by Steve Tinney
+	  <stinney@sas.upenn.edu>)
+0.10
+	- Added tests
+	- Added documentation
+0.04  Wed May  9 2001
+	- Split example.pl and move it to tests and examples/*.pl
+	- Add Saxon support (code from Steve Tinney <stinney@sas.upenn.edu>)
+	- Add out (for output file) parameter (suggested by Steve Tinney <stinney@sas.upenn.edu>)
+
+0.02  Sun May  6 2001
+	- Added XML::XSLT and Xalan
+	- Changed 'use' to 'require' for correct handling of missing modules
+
+0.01  Sun May  6 11:23:35 2001
+	- original version; created by h2xs 1.19
+

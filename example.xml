@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<test>
+  <one>
+    <inone>A bit of text in /test/one/inone.</inone>
+  </one>
+  <two>And here's some in /test/two.
+  </two>
+</test>

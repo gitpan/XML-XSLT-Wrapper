@@ -1,0 +1,8 @@
+- Allow parameters to be supplied as a string
+
+- Add way to turn off Java processors if default list is being used
+
+- Allow passing of XML and XSL sources as filehandles
+
+- cache processors automatically
+

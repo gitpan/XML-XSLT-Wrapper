@@ -1,0 +1,97 @@
+XML::XSLT::Wrapper - Consistent interface to XSLT processors
+
+DESCRIPTION
+
+Provides a consistent interface to various XSLT processors.  Tries each
+of a supplied list of processors in turn until one performs a successful
+transform. If no list is given, tries all the processors it knows until
+one works. Does its best to fail gracefully whenever a processor does
+not work for some reason.
+
+Can return the result of the transform as a string, or write it to a
+specified file.
+
+For those processors which can accept parameters to an XSLT stylesheet,
+XML::XSLT::Wrapper can accept these as hash of name-value pairs, or as
+an array of [name, value, name, value, ...]
+
+On completion, returns:
+    - '' if it has written an output file
+    - the result string if it has succeeded but not written an output file
+    - undef if it has failed
+
+Currently knows how to use XML::LibXSLT, XML::Xalan, XML::Sablotron,
+XML::XSLT as well as the Java processors XT and Saxon. You need to set
+your CLASSPATH environment variable first for the Java processors, or
+pass it to the transform in a JavaClassPath hash element.  In a future
+version, there will be a parameter to turn off support for the Java
+processors.
+
+INSTALL
+
+tar zvzf XML-XSLT-Wrapper-0.31.tar.gz
+cd XML-XSLT-Wrapper-0.31
+perl Makefile.PL
+make
+make test
+make install
+
+DOCUMENTATION
+perldoc XML::XSLT::Wrapper
+See also examples/*.pl, t/*.t, and Driver/WrapperLibXSLT.pm in the distribution directory.
+
+The XML::Sablotron I've tested with is 0.52.
+
+SYNOPSIS
+
+    use XML::XSLT::Wrapper;
+    my $xslt = XML::XSLT::Wrapper->new(
+	    ProcessorList => ['libxslt', 'sablotron'],
+	    )
+
+    $result = $xslt->transform(
+		XMLFile => $xml_filename
+		XSLFile => $xsl_filename
+#OR:		XMLString => $xml_string
+#OR:		XSLString => $xsl_string
+#OR:		xml => $xml_filename_or_string,
+#OR:		xsl => $xsl_filename_or_string,
+		XSLParams => { 'COMEIN' => 'knock knock',
+				'GOAWAY' => 'conk conk' },
+	    );
+	    
+    $result = $xslt->transform(
+		OutFile => $output_filename,
+		XMLFile => $xml_filename
+		XSLFile => $xsl_filename
+		XSLParams => [ 'COMEIN', 'knock knock',
+				'GOAWAY', 'conk conk' ],
+	    );
+    
+    
+    # NB: The pre_parsing interface is likely to change:
+    %pre_parsed = $xslt->pre_parse(
+		XSLFile => $xsl_filename
+	    );
+    $pre_parsed{$processor}{'xsl'} = $parsed_xsl;
+    
+    foreach (@xml_files) {
+	$result = $xslt->transform(
+		    XSLParsed = $parsed_xsl;
+		    OutFile => $output_filename,
+		    XMLFile => $_,
+		    XSLParams => [ 'COMEIN', 'knock knock',
+				    'GOAWAY', 'conk conk' ],
+		);
+    }
+
+See also examples/*.pl, t/*.t and Driver/*.pm in the distribution directory.
+
+CONTRIBUTORS
+
+Steve Tinney <stinney@sas.upenn.edu> has contributed useful ideas and code.
+
+AUTHOR
+
+Colin Muller, colin@durbanet.co.za. Comments and bug reports welcome.
+
